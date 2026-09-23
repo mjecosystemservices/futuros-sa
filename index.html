@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Futuros S.A. — Directorio 2035</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#17202a;--muted:#5f6b76;--border:#d9dee5;--accent:#243447;--soft:#eef2f6;--good:#17663a;--warn:#8a5a00;--bad:#8b1e1e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:900px;margin:auto;padding:18px}.eyebrow{font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:800}h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:.2rem 0;line-height:1}h2{font-size:clamp(1.4rem,4vw,2rem);margin:.25rem 0 .65rem}h3{margin:.15rem 0 .4rem}p{line-height:1.5}.card,.panel{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin:12px 0}.panel{background:var(--soft)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.muted{color:var(--muted)}.big{font-size:1.35rem;font-weight:900}.score{font-size:clamp(2.2rem,9vw,4.5rem);font-weight:950;line-height:1}button{font:inherit;cursor:pointer;min-height:46px;border-radius:12px;border:1px solid var(--border);padding:10px 14px;background:white;color:var(--text)}button.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:850}button.secondary{background:var(--soft);font-weight:750}button:disabled{opacity:.45;cursor:not-allowed}.full{width:100%}.tokens{display:flex;align-items:center;gap:10px;margin-top:12px}.circle{width:44px;height:44px;border-radius:999px;font-size:1.35rem;font-weight:900;padding:0}.count{font-size:1.7rem;font-weight:950;min-width:34px;text-align:center}.tag{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--soft);font-size:.82rem;font-weight:750}.news{border-left:6px solid var(--accent);padding-left:14px}.hidden{display:none!important}.bar{height:11px;border-radius:999px;background:#e4e8ee;overflow:hidden;margin-top:5px}.bar span{display:block;height:100%;background:var(--accent)}.result-row{margin:12px 0}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.choice-grid button{min-height:72px;text-align:left}.mini{font-size:.9rem}.teacher{border:1px dashed #a9b2bd;background:#fbfcfd}.footer-note{font-size:.82rem;color:var(--muted);margin-top:16px}
+.chart-wrap{display:grid;gap:14px}
+.chart-title{font-weight:850;margin-bottom:2px}
+.score-chart{display:grid;gap:12px;margin-top:12px}
+.score-row{display:grid;grid-template-columns:52px minmax(0,1fr) 48px;gap:10px;align-items:center}
+.score-track{height:22px;background:#e5e9ee;border-radius:999px;overflow:hidden;position:relative}
+.score-fill{height:100%;background:var(--accent);border-radius:999px;min-width:2px}
+.score-val{text-align:right;font-weight:850}
+.portfolio-chart{display:grid;gap:14px;margin-top:14px}
+.portfolio-row{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:center}
+.stack{display:flex;height:34px;border-radius:9px;overflow:hidden;border:1px solid var(--border);background:#eef1f4}
+.stack-seg{display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900;color:#fff;min-width:0}
+.seg-eff{background:#566573}.seg-water{background:#2e86c1}.seg-carbon{background:#239b56}.seg-flex{background:#7d3c98}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.legend-item{display:flex;gap:6px;align-items:center;font-size:.85rem}
+.swatch{width:13px;height:13px;border-radius:3px;display:inline-block}
+.final-insight{border-left:5px solid var(--accent);padding-left:14px}
+@media(max-width:650px){.grid,.grid3,.choice-grid{grid-template-columns:1fr}.wrap{padding:12px}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+<section id="intro">
+<div class="eyebrow">Sustentabilidad Empresarial · Prospectiva y escenarios</div>
+<h1>FUTUROS S.A.</h1>
+<p class="big">¿Puede tu empresa sobrevivir a un futuro que no puede predecir?</p>
+<div class="card">
+<p><strong>2030.</strong> Son el directorio de <strong>Alimentos del Valle</strong>, una empresa chilena que depende de productores agrícolas, agua, energía, transporte, envases y supermercados.</p>
+<p>Tienen <strong>10 fichas de inversión</strong>. Deben decidir hoy. Las inversiones son difíciles de revertir y nadie sabe qué mundo aparecerá en 2035.</p>
+<div class="grid3"><div class="panel"><strong>3 rondas</strong><br><span class="muted mini">Cada ronda revela un futuro distinto.</span></div><div class="panel"><strong>Se puede adaptar</strong><br><span class="muted mini">Pero cambiar de rumbo tiene costo.</span></div><div class="panel"><strong>La meta</strong><br><span class="muted mini">No adivinar: mantener resiliencia.</span></div></div>
+<div class="row"><label class="mini"><input type="checkbox" id="randomMode"> Modo libre: escenarios aleatorios</label><span class="tag">Modo aula recomendado</span></div>
+<button class="primary full" id="startBtn">Entrar al directorio</button>
+</div>
+<div class="card teacher"><strong>Para la profesora</strong><p class="mini">Grupos de 3–5 y un teléfono por grupo. En modo aula, todos enfrentan los mismos futuros. 12–15 min de juego + 8–10 min de debrief.</p></div>
+</section>
+
+<section id="decision" class="hidden">
+<div class="row"><div><div class="eyebrow">Ronda <span id="roundLabel">1</span> de 3</div><h2>Distribuyan sus 10 fichas</h2><div class="panel" style="margin-top:8px"><strong>⚠️ EL PRÓXIMO ESCENARIO ES DESCONOCIDO</strong><br><span class="mini muted">Decidan hoy pensando en <strong><span id="decisionYear">2035</span></strong>. No intenten adivinar qué escenario ocurrirá: construyan una estrategia capaz de resistir futuros distintos.</span></div></div><div class="panel" style="min-width:150px;text-align:center"><div class="muted mini">Disponibles</div><div class="score" id="remaining">10</div></div></div>
+<div id="signalBox" class="card hidden"><div class="row"><div><h3>🔎 ¿Comprar una señal temprana?</h3><p class="mini muted">Cuesta 1 punto. Entrega una pista sobre cambios que ya comienzan a observarse, pero <strong>no revela qué escenario ocurrirá</strong>.</p></div><button id="buySignalBtn" class="secondary">Comprar señal</button></div><div id="signalText" class="panel hidden"></div></div>
+<div class="grid" id="strategyGrid"></div>
+<div id="adaptInfo" class="panel hidden"><strong>El escenario anterior ya ocurrió. El siguiente todavía no.</strong><br><span class="mini">Pueden ajustar su estrategia, pero existe <strong>lock-in</strong>: mover inversiones respecto de la ronda anterior tiene costo de adaptación.</span></div>
+<button class="primary full" id="lockBtn" disabled>Bloquear decisión y avanzar 5 años</button>
+</section>
+
+<section id="news" class="hidden"><div class="card news"><div class="eyebrow">Breaking News · <span id="newsYear">2035</span></div><h2 id="futureTitle"></h2><p id="futureText"></p><div class="panel mini"><strong>Esto fue lo que ocurrió.</strong> Ustedes tomaron la decisión antes de conocer este escenario.</div></div><button class="primary full" id="revealBtn">Ver cómo funcionó nuestra estrategia</button></section>
+
+<section id="result" class="hidden">
+<div class="grid"><div class="card"><div class="muted mini">Desempeño</div><div class="score" id="roundScore">0</div><div class="muted mini">puntos / 100</div></div><div class="card"><div class="muted mini">Costo de adaptación</div><div class="score" id="adaptCost">0</div><div class="muted mini">puntos descontados</div></div></div>
+<div class="card"><h3>¿Qué pasó con cada apuesta?</h3><div id="strategyResults"></div></div>
+<div class="panel" id="reflection"></div>
+<button class="primary full" id="nextBtn">Tomar la siguiente decisión bajo incertidumbre</button>
+</section>
+
+<section id="final" class="hidden">
+<div class="card" style="text-align:center"><div class="eyebrow">Resultado del directorio</div><h2 id="badge"></h2><p id="badgeText"></p></div>
+<div class="grid3" id="roundSummary"></div>
+
+<div class="card">
+  <div class="eyebrow">Comparación final</div>
+  <h3>¿Cómo funcionó su estrategia a través de futuros distintos?</h3>
+  <div class="chart-wrap">
+    <div>
+      <div class="chart-title">Desempeño por ronda</div>
+      <div class="mini muted">Un puntaje muy alto en una sola ronda no necesariamente significa una estrategia robusta.</div>
+      <div id="scoreChart" class="score-chart" aria-label="Gráfico de puntaje por ronda"></div>
+    </div>
+
+    <div style="margin-top:8px">
+      <div class="chart-title">Cómo cambió el portafolio de inversión</div>
+      <div class="mini muted">Cada barra representa las 10 fichas distribuidas antes de conocer el futuro de esa ronda.</div>
+      <div id="portfolioChart" class="portfolio-chart" aria-label="Gráfico de portafolio por ronda"></div>
+      <div class="legend">
+        <span class="legend-item"><span class="swatch seg-eff"></span>⚙️ Eficiencia</span>
+        <span class="legend-item"><span class="swatch seg-water"></span>💧 Agua/proveedores</span>
+        <span class="legend-item"><span class="swatch seg-carbon"></span>⚡ Bajo carbono</span>
+        <span class="legend-item"><span class="swatch seg-flex"></span>🧭 Flexibilidad</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="finalInsight" class="panel final-insight" style="margin-top:16px"></div>
+</div>
+
+<div class="card"><h3>La idea clave</h3><p><strong>Forecast:</strong> proyectar o apostar por el futuro que parece más probable.</p><p><strong>Foresight:</strong> explorar múltiples futuros plausibles.</p><p><strong>Robustez:</strong> buscar decisiones que sigan funcionando razonablemente bien aunque el futuro sea distinto al esperado.</p></div>
+<div class="card"><h3>Mini-desafío final</h3><p>¿Cuál debería ser la pregunta de una empresa frente a un futuro incierto?</p><div class="choice-grid" id="quizChoices"><button data-answer="0">A. ¿Cuál escenario creemos que ocurrirá?</button><button data-answer="0">B. ¿Cómo podemos predecir exactamente el futuro?</button><button data-answer="1">C. ¿Qué decisiones siguen siendo razonables bajo varios futuros posibles?</button><button data-answer="0">D. ¿Cómo evitamos toda incertidumbre?</button></div><div id="quizFeedback" class="panel hidden"></div></div>
+<div class="card teacher"><strong>Debrief sugerido</strong><ol><li>¿Quién fue excelente en una ronda y muy malo en otra?</li><li>¿Quién cambió mucho y pagó altos costos de adaptación?</li><li>¿Quién nunca fue “el mejor”, pero funcionó razonablemente bien en los tres mundos?</li><li>¿Qué señales tempranas monitorearían en una empresa real?</li></ol></div>
+<button class="secondary full" id="restartBtn">Jugar otra vez</button><div class="footer-note">Juego educativo autocontenido. No requiere internet una vez abierto.</div>
+</section>
+</div>
+<script>
+(()=>{
+const app=document.getElementById('app'),$=s=>app.querySelector(s);
+const strategies=[
+{id:'eff',icon:'⚙️',name:'Eficiencia máxima',desc:'Automatización, estandarización y reducción agresiva de costos.'},
+{id:'water',icon:'💧',name:'Seguridad hídrica y proveedores',desc:'Eficiencia hídrica, diversificación geográfica y apoyo a productores.'},
+{id:'carbon',icon:'⚡',name:'Transición baja en carbono',desc:'Electrificación, renovables, logística y reducción de emisiones de cadena.'},
+{id:'flex',icon:'🧭',name:'Flexibilidad estratégica',desc:'Varias apuestas pequeñas, liquidez y capacidad de cambiar rápido.'}
+];
+const classroom=[
+{title:'🌱 Transición verde acelerada',text:'El precio del carbono sube con fuerza. Supermercados exigen trazabilidad ambiental, el financiamiento favorece activos bajos en emisiones y aumentan las restricciones al uso de agua.',signal:'Las grandes cadenas anuncian pilotos de trazabilidad obligatoria y bancos mejoran condiciones para inversiones bajas en carbono.',weights:{eff:3,water:4,carbon:5,flex:3},notes:{eff:'Ayuda en costos, pero deja exposición a carbono y recursos.',water:'Reduce una vulnerabilidad material creciente.',carbon:'Muy bien posicionada frente a regulación y financiamiento.',flex:'Permite responder, aunque captura menos ventaja que una apuesta temprana.'}},
+{title:'🌪️ Transición desordenada',text:'La regulación cambia bruscamente entre mercados. Se producen crisis energéticas, alta volatilidad de costos e interrupciones frecuentes de suministro.',signal:'Aumenta la volatilidad de energía y varios países anuncian regulaciones ambientales incompatibles entre sí.',weights:{eff:2,water:4,carbon:3,flex:5},notes:{eff:'La eficiencia ayuda, pero una estructura demasiado optimizada puede ser frágil.',water:'Diversificar proveedores amortigua shocks de suministro.',carbon:'Protege parcialmente frente a energía fósil, pero no resuelve toda la volatilidad.',flex:'La capacidad de cambiar rápido tiene alto valor en un entorno caótico.'}},
+{title:'🔥 Crisis hídrica y social',text:'Una sequía prolongada reduce la producción agrícola. Surgen conflictos territoriales por el agua, restricciones de uso e interrupciones de abastecimiento.',signal:'Tres temporadas consecutivas muestran déficit de precipitaciones y aseguradoras encarecen coberturas para proveedores agrícolas expuestos.',weights:{eff:1,water:5,carbon:2,flex:4},notes:{eff:'Reducir costos no resuelve el cuello de botella crítico: agua y abastecimiento.',water:'La diversificación y gestión hídrica se vuelven centrales para seguir operando.',carbon:'Sigue siendo importante, pero no ataca el riesgo dominante.',flex:'Mantener opciones ayuda a reconfigurar proveedores y producción.'}}
+];
+const extra={title:'📉 Guerra de costos',text:'La regulación avanza lentamente, la demanda se estanca y los márgenes caen. La competencia castiga fuertemente los costos operacionales.',signal:'Los consumidores priorizan precio y los competidores anuncian automatización intensiva.',weights:{eff:5,water:2,carbon:2,flex:3},notes:{eff:'La automatización entrega una ventaja importante de costos.',water:'Aporta resiliencia, aunque no es la presión dominante.',carbon:'Entrega menos ventaja inmediata en este mundo.',flex:'Permite ajustar, pero puede quedar detrás de competidores muy eficientes.'}};
+let round=1,allocation={eff:0,water:0,carbon:0,flex:0},previous=null,results=[],signalPenalty=0,order=[];
+function total(){return Object.values(allocation).reduce((a,b)=>a+b,0)}function rem(){return 10-total()}
+function show(id){['intro','decision','news','result','final'].forEach(x=>$('#'+x).classList.add('hidden'));$('#'+id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
+function render(){const g=$('#strategyGrid');g.innerHTML='';strategies.forEach(s=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<div class="row"><div class="row" style="justify-content:flex-start"><span style="font-size:2rem">${s.icon}</span><div><h3>${s.name}</h3><div class="mini muted">${s.desc}</div></div></div></div><div class="tokens"><button class="circle minus">−</button><span class="count">${allocation[s.id]}</span><button class="circle plus">+</button></div>`;d.querySelector('.minus').addEventListener('click',()=>chg(s.id,-1));d.querySelector('.plus').addEventListener('click',()=>chg(s.id,1));g.appendChild(d)});$('#remaining').textContent=rem();$('#lockBtn').disabled=rem()!==0}
+function chg(id,d){if(d>0&&rem()<=0)return;if(d<0&&allocation[id]<=0)return;allocation[id]+=d;render()}
+function movedCost(){if(!previous)return 0;return Math.round(Object.keys(allocation).reduce((s,k)=>s+Math.abs(allocation[k]-previous[k]),0)/2*3)}
+function cur(){return order[round-1]}
+function start(){order=[...classroom];if($('#randomMode').checked)order=[...classroom,extra].sort(()=>Math.random()-.5).slice(0,3);round=1;allocation={eff:0,water:0,carbon:0,flex:0};previous=null;results=[];signalPenalty=0;$('#roundLabel').textContent='1';$('#decisionYear').textContent='2035';$('#adaptInfo').classList.add('hidden');$('#signalBox').classList.add('hidden');render();show('decision')}
+function lock(){const f=cur(),year=2030+round*5;$('#futureTitle').textContent=f.title;$('#futureText').textContent=f.text;$('#newsYear').textContent=String(year);show('news')}
+function reveal(){const f=cur(),raw=Object.keys(allocation).reduce((s,k)=>s+allocation[k]*f.weights[k],0)*2,adapt=movedCost(),score=Math.max(0,Math.round(raw-adapt-signalPenalty));results.push({round,title:f.title,score,adapt,signal:signalPenalty,allocation:{...allocation}});$('#roundScore').textContent=score;$('#adaptCost').textContent=adapt+signalPenalty;const b=$('#strategyResults');b.innerHTML='';strategies.forEach(s=>{const pts=allocation[s.id]*f.weights[s.id]*2,r=document.createElement('div');r.className='result-row';r.innerHTML=`<div class="row mini"><span>${s.icon} <strong>${s.name}</strong> · ${allocation[s.id]} fichas</span><strong>${pts} pts</strong></div><div class="bar"><span style="width:${Math.min(100,pts)}%"></span></div><div class="mini muted" style="margin-top:4px">${f.notes[s.id]}</div>`;b.appendChild(r)});$('#reflection').innerHTML=score>=78?'<strong class="good">Muy buen desempeño.</strong> ¿Funcionaría igual de bien en otro futuro?':score>=58?'<strong class="warn">Desempeño razonable.</strong> Quizá no sea óptimo, pero puede ser robusto.':'<strong class="bad">El escenario expuso una vulnerabilidad.</strong> ¿Qué supusieron sobre el futuro?';$('#nextBtn').textContent=round<3?'Tomar la siguiente decisión bajo incertidumbre':'Ver resultado final';show('result')}
+function next(){previous={...allocation};if(round>=3){finish();return}round++;signalPenalty=0;$('#roundLabel').textContent=String(round);$('#decisionYear').textContent=String(2030+round*5);$('#adaptInfo').classList.remove('hidden');$('#signalBox').classList.remove('hidden');$('#signalText').classList.add('hidden');$('#buySignalBtn').disabled=false;$('#buySignalBtn').textContent='Comprar señal';render();show('decision')}
+function buySignal(){signalPenalty=1;$('#signalText').textContent='SEÑAL TEMPRANA: '+cur().signal;$('#signalText').classList.remove('hidden');$('#buySignalBtn').disabled=true;$('#buySignalBtn').textContent='Señal comprada'}
+
+function renderFinalCharts(){
+  const scoreChart=$('#scoreChart');
+  const portfolioChart=$('#portfolioChart');
+  scoreChart.innerHTML='';
+  portfolioChart.innerHTML='';
+
+  results.forEach(r=>{
+    const year=2030+r.round*5;
+
+    const sr=document.createElement('div');
+    sr.className='score-row';
+    sr.innerHTML=`<strong>${year}</strong><div class="score-track" title="${r.score} puntos"><div class="score-fill" style="width:${Math.max(0,Math.min(100,r.score))}%"></div></div><div class="score-val">${r.score}</div>`;
+    scoreChart.appendChild(sr);
+
+    const pr=document.createElement('div');
+    pr.className='portfolio-row';
+    const a=r.allocation;
+    pr.innerHTML=`<strong>${year}</strong>
+      <div class="stack" title="Portafolio para ${year}">
+        <div class="stack-seg seg-eff" style="width:${a.eff*10}%">${a.eff? a.eff:''}</div>
+        <div class="stack-seg seg-water" style="width:${a.water*10}%">${a.water? a.water:''}</div>
+        <div class="stack-seg seg-carbon" style="width:${a.carbon*10}%">${a.carbon? a.carbon:''}</div>
+        <div class="stack-seg seg-flex" style="width:${a.flex*10}%">${a.flex? a.flex:''}</div>
+      </div>`;
+    portfolioChart.appendChild(pr);
+  });
+
+  const scores=results.map(r=>r.score);
+  const min=Math.min(...scores), max=Math.max(...scores);
+  const spread=max-min;
+  const first=results[0].allocation;
+  const last=results[results.length-1].allocation;
+  const movedAcross=Object.keys(first).reduce((s,k)=>s+Math.abs(last[k]-first[k]),0)/2;
+
+  let msg='';
+  if(min>=60 && spread<=25){
+    msg='<strong>Lectura:</strong> su desempeño fue relativamente consistente entre futuros. Eso es una señal de <strong>robustez</strong>: no depender de acertar un único escenario.';
+  }else if(max>=80 && min<50){
+    msg='<strong>Lectura:</strong> tuvieron un desempeño excelente en al menos un futuro, pero una caída fuerte en otro. Eso se parece a una <strong>optimización frágil</strong>.';
+  }else if(movedAcross>=4){
+    msg='<strong>Lectura:</strong> su portafolio cambió bastante a través de las rondas. Mostraron <strong>capacidad de adaptación</strong>, aunque cambiar inversiones tiene costos.';
+  }else{
+    msg='<strong>Lectura:</strong> comparen las dos gráficas: ¿su portafolio mantuvo resultados razonables o dependió de que apareciera un futuro particular?';
+  }
+  $('#finalInsight').innerHTML=msg+'<br><br><strong>Pregunta de cierre:</strong> ¿su estrategia fue óptima para un futuro o robusta frente a varios?';
+}
+
+function finish(){const scores=results.map(r=>r.score),avg=scores.reduce((a,b)=>a+b,0)/scores.length,min=Math.min(...scores),max=Math.max(...scores),cost=results.reduce((a,r)=>a+r.adapt+r.signal,0);let badge='⚖️ Directorio equilibrado',txt='Su portafolio mostró fortalezas y debilidades. La pregunta ahora es qué decisiones conviene mantener y cuáles necesitan opciones de adaptación.';if(min>=60&&avg>=68){badge='🛡️ Estrategas robustos';txt='No necesariamente fueron los mejores en cada escenario, pero evitaron un desempeño crítico en cualquiera.'}else if(cost>=12&&avg>=60){badge='🧭 Adaptadores ágiles';txt='Respondieron al cambio, pero modificando bastante su portafolio. Adaptarse sirve, aunque cuesta.'}else if(max>=82&&min<48){badge='🎯 Optimizadores frágiles';txt='Fueron excelentes en un mundo y vulnerables en otro. Optimizar funciona muy bien… si acertamos el futuro.'}else if(Math.max(...Object.values(results[0].allocation))>=7){badge='🔮 Apostadores del futuro';txt='Concentraron gran parte de los recursos en una sola visión. Puede rendir mucho, pero aumenta la exposición si el mundo cambia.'}$('#badge').textContent=badge;$('#badgeText').textContent=txt;const s=$('#roundSummary');s.innerHTML='';results.forEach(r=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<div class="eyebrow">Ronda ${r.round}</div><div style="font-weight:850;margin:.4rem 0">${r.title}</div><div class="score">${r.score}</div><div class="muted mini">puntos</div>`;s.appendChild(d)});renderFinalCharts();$('#quizFeedback').classList.add('hidden');show('final')}
+$('#startBtn').addEventListener('click',start);$('#lockBtn').addEventListener('click',lock);$('#revealBtn').addEventListener('click',reveal);$('#nextBtn').addEventListener('click',next);$('#buySignalBtn').addEventListener('click',buySignal);$('#restartBtn').addEventListener('click',()=>show('intro'));$('#quizChoices').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('#quizFeedback').classList.remove('hidden');$('#quizFeedback').innerHTML=b.dataset.answer==='1'?'<strong class="good">Exacto.</strong> La prospectiva no elimina la incertidumbre: ayuda a tomar decisiones que siguen teniendo sentido bajo distintos futuros.':'<strong class="warn">Piénsenlo de nuevo.</strong> El objetivo no es adivinar un único futuro ni eliminar la incertidumbre.'});render();
+})();
+</script>
+</body>
+</html>
