@@ -34,11 +34,11 @@
 <div class="card">
 <p><strong>2030.</strong> Son el directorio de <strong>Alimentos del Valle</strong>, una empresa chilena que depende de productores agrícolas, agua, energía, transporte, envases y supermercados.</p>
 <p>Tienen <strong>10 fichas de inversión</strong>. Deben decidir hoy. Las inversiones son difíciles de revertir y nadie sabe qué mundo aparecerá en 2035.</p>
-<div class="grid3"><div class="panel"><strong>3 rondas</strong><br><span class="muted mini">Cada ronda revela un futuro distinto.</span></div><div class="panel"><strong>Se puede adaptar</strong><br><span class="muted mini">Pero cambiar de rumbo tiene costo.</span></div><div class="panel"><strong>La meta</strong><br><span class="muted mini">No adivinar: mantener resiliencia.</span></div></div>
+<div class="grid3"><div class="panel"><strong>3 rondas</strong><br><span class="muted mini">Deciden para 2035, 2040 y 2045.</span></div><div class="panel"><strong>Se pueden adaptar</strong><br><span class="muted mini">Después de cada futuro pueden cambiar su portafolio, pero cambiar tiene costo.</span></div><div class="panel"><strong>La meta</strong><br><span class="muted mini">No adivinar el futuro: construir una estrategia robusta.</span></div></div>
 <div class="row"><label class="mini"><input type="checkbox" id="randomMode"> Modo libre: escenarios aleatorios</label><span class="tag">Modo aula recomendado</span></div>
 <button class="primary full" id="startBtn">Entrar al directorio</button>
 </div>
-<div class="card teacher"><strong>Para la profesora</strong><p class="mini">Grupos de 3–5 y un teléfono por grupo. En modo aula, todos enfrentan los mismos futuros. 12–15 min de juego + 8–10 min de debrief.</p></div>
+<div class="card teacher"><strong>Cómo jugar en clase</strong><p class="mini">Grupos de 3–5 · un teléfono por grupo · 12–15 min de juego. En modo aula, todos enfrentan los mismos futuros.</p></div>
 </section>
 
 <section id="decision" class="hidden">
@@ -158,7 +158,7 @@ function renderFinalCharts(){
 
   let msg='';
   if(min>=60 && spread<=25){
-    msg='<strong>Lectura:</strong> su desempeño fue relativamente consistente entre futuros. Eso es una señal de <strong>robustez</strong>: no depender de acertar un único escenario.';
+    msg='<strong>Lectura:</strong> su desempeño fue relativamente consistente entre futuros. Eso es una señal de <strong>robustez</strong>: mantener un desempeño razonable bajo futuros distintos, sin depender de acertar cuál ocurrirá.';
   }else if(max>=80 && min<50){
     msg='<strong>Lectura:</strong> tuvieron un desempeño excelente en al menos un futuro, pero una caída fuerte en otro. Eso se parece a una <strong>optimización frágil</strong>.';
   }else if(movedAcross>=4){
@@ -166,7 +166,7 @@ function renderFinalCharts(){
   }else{
     msg='<strong>Lectura:</strong> comparen las dos gráficas: ¿su portafolio mantuvo resultados razonables o dependió de que apareciera un futuro particular?';
   }
-  $('#finalInsight').innerHTML=msg+'<br><br><strong>Pregunta de cierre:</strong> ¿su estrategia fue óptima para un futuro o robusta frente a varios?';
+  $('#finalInsight').innerHTML=msg+'<br><br><strong>Pregunta de cierre:</strong> ¿su estrategia dependía de acertar un futuro o funcionó razonablemente bien bajo varios?';
 }
 
 function finish(){const scores=results.map(r=>r.score),avg=scores.reduce((a,b)=>a+b,0)/scores.length,min=Math.min(...scores),max=Math.max(...scores),cost=results.reduce((a,r)=>a+r.adapt+r.signal,0);let badge='⚖️ Directorio equilibrado',txt='Su portafolio mostró fortalezas y debilidades. La pregunta ahora es qué decisiones conviene mantener y cuáles necesitan opciones de adaptación.';if(min>=60&&avg>=68){badge='🛡️ Estrategas robustos';txt='No necesariamente fueron los mejores en cada escenario, pero evitaron un desempeño crítico en cualquiera.'}else if(cost>=12&&avg>=60){badge='🧭 Adaptadores ágiles';txt='Respondieron al cambio, pero modificando bastante su portafolio. Adaptarse sirve, aunque cuesta.'}else if(max>=82&&min<48){badge='🎯 Optimizadores frágiles';txt='Fueron excelentes en un mundo y vulnerables en otro. Optimizar funciona muy bien… si acertamos el futuro.'}else if(Math.max(...Object.values(results[0].allocation))>=7){badge='🔮 Apostadores del futuro';txt='Concentraron gran parte de los recursos en una sola visión. Puede rendir mucho, pero aumenta la exposición si el mundo cambia.'}$('#badge').textContent=badge;$('#badgeText').textContent=txt;const s=$('#roundSummary');s.innerHTML='';results.forEach(r=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<div class="eyebrow">Ronda ${r.round}</div><div style="font-weight:850;margin:.4rem 0">${r.title}</div><div class="score">${r.score}</div><div class="muted mini">puntos</div>`;s.appendChild(d)});renderFinalCharts();$('#quizFeedback').classList.add('hidden');show('final')}
