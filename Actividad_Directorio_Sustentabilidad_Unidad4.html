@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Actividad interactiva · ¿Qué haría el directorio?</title>
+<style>
+:root{
+  --navy:#0f2747; --blue:#2c6fa3; --green:#2f7d5a; --bg:#eef3f6;
+  --card:#fff; --text:#1b2430; --muted:#637081; --line:#d7e0e7;
+  --warn:#f2b84b; --soft:#f6f8fa; --ok:#e9f5ee; --shadow:0 12px 35px rgba(20,43,65,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#eaf1f5,#f7f9fa);color:var(--text)}
+.app{width:min(1080px,94vw);margin:28px auto 60px}
+.hero{background:linear-gradient(135deg,var(--navy),#173e66 60%,#1d6176);color:#fff;border-radius:24px;padding:34px;box-shadow:var(--shadow)}
+.kicker{font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.82}
+h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.02;margin:.35rem 0 .55rem}
+.hero p{margin:0;color:#e6eef5;max-width:830px}
+.progress-wrap{height:10px;background:rgba(255,255,255,.16);border-radius:999px;margin-top:24px;overflow:hidden}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#7ad8a6,#d9ef83);transition:.3s}
+.progress-meta{display:flex;justify-content:space-between;margin-top:8px;color:#dfeaf2;font-size:.88rem}
+.panel{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow)}
+.step{display:none}.step.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:.25;transform:translateY(7px)}to{opacity:1;transform:none}}
+h2{margin:0 0 8px;color:var(--navy);font-size:1.7rem}.lead{margin:0 0 20px;color:var(--muted)}
+.case{background:#f7f3e9;border-left:6px solid var(--green);padding:20px;border-radius:15px;margin:16px 0 24px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:780px){.grid,.grid.three{grid-template-columns:1fr}.panel{padding:22px}}
+.option{border:2px solid var(--line);border-radius:16px;padding:16px;cursor:pointer;background:#fff;transition:.18s}
+.option:hover{transform:translateY(-2px);border-color:#a9bdca}.option.selected{border-color:var(--green);background:#f1f8f4;box-shadow:0 0 0 3px rgba(47,125,90,.10)}
+.tag{display:inline-block;background:#e9f4ee;color:var(--green);font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 7px;margin-bottom:7px}
+.option h3{margin:0 0 5px;color:var(--navy);font-size:1.05rem}.option p{margin:0;color:var(--muted);font-size:.93rem}
+label.block{display:block;margin:17px 0 7px;font-weight:800;color:var(--navy)}
+textarea,input[type=text]{width:100%;border:1.5px solid #cad6df;border-radius:12px;padding:12px 13px;font:inherit;min-height:44px}
+textarea{min-height:95px;resize:vertical}
+.help{background:#edf5fb;border-left:4px solid var(--blue);padding:13px 15px;border-radius:10px;color:#33536d;font-size:.94rem;margin:14px 0}
+.required{background:#fff8e9;border-left:4px solid var(--warn);padding:13px 15px;border-radius:10px;color:#715a1e;font-size:.94rem;margin:14px 0}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
+button{border:0;border-radius:12px;padding:12px 18px;font-weight:850;font-size:.96rem;cursor:pointer}
+.primary{background:var(--navy);color:#fff}.secondary{background:#edf1f4;color:var(--navy)}
+.checkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(max-width:780px){.checkgrid{grid-template-columns:1fr}}
+.checkcard{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.checkcard input{margin-top:3px}
+.step-note{font-size:.88rem;color:var(--muted);margin-top:10px}
+.result-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+@media(max-width:860px){.result-grid{grid-template-columns:1fr}}
+.result-card{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff}
+.score{display:flex;align-items:center;gap:14px}.score-num{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#e6f4eb,#dceef7);font-size:1.7rem;font-weight:900;color:var(--navy)}
+.summary-line{padding:9px 0;border-bottom:1px solid #edf1f3}.summary-line:last-child{border-bottom:0}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-weight:800;font-size:.79rem;margin:3px 5px 3px 0}.good{background:#e5f4ea;color:#24613f}.mid{background:#fff4d7;color:#755d1c}.note{background:#e7f0f8;color:#2d5877}
+pre{white-space:pre-wrap;background:#f7f9fb;border:1px solid var(--line);padding:15px;border-radius:12px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="app">
+<section class="hero">
+  <div class="kicker">Sustentabilidad Empresarial · Unidad 4</div>
+  <h1>¿Qué haría el directorio?</h1>
+  <p>Avancen por etapas. En cada paso deberán tomar una decisión. Al final recibirán un diagnóstico de coherencia estratégica.</p>
+  <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+  <div class="progress-meta"><span id="stepName">Inicio</span><span id="stepCount">0 / 6</span></div>
+</section>
+
+<section class="panel">
+
+<div class="step active" data-step="0">
+  <h2>El caso</h2>
+  <p class="lead">Ustedes son el directorio de una empresa chilena de alimentos. Deben priorizar una sola decisión estratégica.</p>
+  <div class="case">
+    <strong>La empresa enfrenta:</strong>
+    <ul>
+      <li>aumento del costo de la energía;</li>
+      <li>proveedores agrícolas vulnerables a sequías;</li>
+      <li>presión de clientes por productos con menor huella ambiental;</li>
+      <li>riesgo de interrupciones en la cadena de suministro;</li>
+      <li>mayores exigencias de trazabilidad para exportar.</li>
+    </ul>
+  </div>
+  <label class="block">Nombre del grupo</label>
+  <input id="groupName" type="text" placeholder="Ej.: Grupo 3">
+  <div class="help">No hay una única respuesta correcta. Lo importante es que problema, marco, decisión, valor e impactos sean coherentes entre sí.</div>
+  <div class="nav"><span></span><button class="primary" onclick="nextStep()">Comenzar</button></div>
+</div>
+
+<div class="step" data-step="1">
+  <h2>Etapa 1 · Prioricen un problema</h2>
+  <p class="lead">¿Cuál de estos desafíos debería abordar primero el directorio?</p>
+  <div class="grid" id="challengeOptions"></div>
+  <label class="block">¿Por qué lo priorizan?</label>
+  <textarea id="challengeWhy" placeholder="Ej.: porque amenaza la continuidad del suministro y puede transformarse en un riesgo financiero y operativo."></textarea>
+  <div class="required">Para continuar deben elegir un problema y escribir una justificación breve.</div>
+  <div class="nav"><button class="secondary" onclick="prevStep()">Atrás</button><button class="primary" onclick="nextStep()">Siguiente</button></div>
+</div>
+
+<div class="step" data-step="2">
+  <h2>Etapa 2 · Elijan el marco principal</h2>
+  <p class="lead">¿Qué marco ayuda mejor a pensar el problema que eligieron?</p>
+  <div class="grid" id="frameworkOptions"></div>
+  <label class="block">¿Por qué este marco?</label>
+  <textarea id="frameworkWhy" placeholder="Explique qué pregunta permite responder este marco y por qué es útil para su problema."></textarea>
+  <div class="help"><strong>Pista:</strong> Valor compartido = creación conjunta de valor · Economía circular = cerrar ciclos · Licencia social = legitimidad · Ecoeficiencia = hacer más con menos · ACV = mirar impactos en todo el sistema.</div>
+  <div class="nav"><button class="secondary" onclick="prevStep()">Atrás</button><button class="primary" onclick="nextStep()">Siguiente</button></div>
+</div>
+
+<div class="step" data-step="3">
+  <h2>Etapa 3 · Tomen una decisión estratégica</h2>
+  <p class="lead">Elijan una acción concreta coherente con el marco. Pueden usar una sugerida o escribir la propia.</p>
+  <div class="grid" id="actionOptions"></div>
+  <label class="block">O escriban una decisión propia</label>
+  <textarea id="customAction" placeholder="Ej.: establecer contratos de largo plazo con proveedores y cofinanciar tecnologías de riego eficiente."></textarea>
+  <div class="nav"><button class="secondary" onclick="prevStep()">Atrás</button><button class="primary" onclick="nextStep()">Siguiente</button></div>
+</div>
+
+<div class="step" data-step="4">
+  <h2>Etapa 4 · ¿Optimización o transformación?</h2>
+  <p class="lead">Esta etapa no pregunta si la decisión es “buena o mala”. Pregunta <strong>cuánto cambia la lógica del negocio</strong>.</p>
+  <div class="grid">
+    <div class="option" data-choice="depth" data-value="Optimización" onclick="selectOption(this)">
+      <span class="tag">Optimización</span>
+      <h3>Mejora lo que ya existe</h3>
+      <p>Reduce costos o impactos y hace más eficiente el proceso, pero mantiene la lógica central del negocio.</p>
+    </div>
+    <div class="option" data-choice="depth" data-value="Transformación" onclick="selectOption(this)">
+      <span class="tag">Transformación</span>
+      <h3>Cambia la lógica del negocio</h3>
+      <p>Modifica la propuesta de valor, el modelo de ingresos, los incentivos o la forma de competir.</p>
+    </div>
+  </div>
+  <div class="help"><strong>Ejemplo:</strong> instalar paneles solares = normalmente optimización. Pasar de vender ampolletas a vender iluminación como servicio = transformación del modelo de negocio.</div>
+  <label class="block">Justifiquen su clasificación</label>
+  <textarea id="depthWhy" placeholder="¿Qué cambia realmente con su decisión?"></textarea>
+  <div class="nav"><button class="secondary" onclick="prevStep()">Atrás</button><button class="primary" onclick="nextStep()">Siguiente</button></div>
+</div>
+
+<div class="step" data-step="5">
+  <h2>Etapa 5 · ¿Qué gana la empresa y qué mejora socioambientalmente?</h2>
+  <p class="lead">Esta etapa tiene <strong>tres partes obligatorias</strong>. Completen las tres antes de avanzar.</p>
+
+  <h3 style="color:var(--navy)">A. Valor para la empresa</h3>
+  <p class="step-note">Seleccionen al menos una consecuencia empresarial positiva.</p>
+  <div class="checkgrid" id="businessChecks"></div>
+
+  <h3 style="color:var(--navy);margin-top:24px">B. Impacto social o ambiental abordado</h3>
+  <p class="step-note">Seleccionen al menos un impacto o beneficio socioambiental.</p>
+  <div class="checkgrid" id="impactChecks"></div>
+
+  <h3 style="color:var(--navy);margin-top:24px">C. Riesgo, límite o trade-off</h3>
+  <p class="step-note">Toda decisión tiene costos o riesgos. Escriban al menos uno.</p>
+  <textarea id="tradeoff" placeholder="Ej.: alta inversión inicial, resistencia interna, dependencia tecnológica, efecto rebote, conflicto territorial..."></textarea>
+
+  <div class="required"><strong>Obligatorio para continuar:</strong> al menos 1 valor para la empresa + 1 impacto social/ambiental + 1 riesgo o trade-off.</div>
+  <div class="nav"><button class="secondary" onclick="prevStep()">Atrás</button><button class="primary" onclick="nextStep()">Siguiente</button></div>
+</div>
+
+<div class="step" data-step="6">
+  <h2>Etapa 6 · Stress test de la decisión</h2>
+  <p class="lead">Ahora sometan su propuesta a una mirada crítica. Elijan al menos una prueba.</p>
+  <div class="grid three">
+    <div class="option" data-choice="stress" data-value="Efecto rebote" onclick="toggleMulti(this)">
+      <span class="tag">Escala</span>
+      <h3>Efecto rebote</h3>
+      <p>¿La mayor eficiencia podría terminar aumentando el consumo total?</p>
+    </div>
+    <div class="option" data-choice="stress" data-value="Ciclo de vida" onclick="toggleMulti(this)">
+      <span class="tag">Sistema</span>
+      <h3>Ciclo de vida</h3>
+      <p>¿Estamos desplazando impactos hacia otra etapa de la cadena de valor?</p>
+    </div>
+    <div class="option" data-choice="stress" data-value="Jerarquía de mitigación" onclick="toggleMulti(this)">
+      <span class="tag">Impactos</span>
+      <h3>Jerarquía de mitigación</h3>
+      <p>¿Podemos evitar o minimizar antes de restaurar o compensar?</p>
+    </div>
+  </div>
+  <label class="block">¿Qué revisarían antes de aprobar la decisión?</label>
+  <textarea id="stressWhy" placeholder="Ej.: verificar que la reducción por unidad no se pierda por un aumento excesivo del volumen producido."></textarea>
+  <div class="required">Para ver los resultados deben elegir al menos una prueba y escribir qué revisarían.</div>
+  <div class="nav"><button class="secondary" onclick="prevStep()">Atrás</button><button class="primary" onclick="showResults()">Ver resultados</button></div>
+</div>
+
+<div class="step" data-step="7">
+  <h2>Resultado del directorio</h2>
+  <p class="lead">Este resultado evalúa la coherencia interna de su propuesta, no si eligieron una única “respuesta correcta”.</p>
+
+  <div class="result-grid">
+    <div class="result-card">
+      <h3>Su estrategia</h3>
+      <div id="summary"></div>
+    </div>
+    <div class="result-card">
+      <h3>Diagnóstico</h3>
+      <div class="score">
+        <div class="score-num" id="scoreNum">0</div>
+        <div>
+          <div id="scoreLabel" style="font-weight:900;color:var(--navy);font-size:1.1rem"></div>
+          <div style="font-size:.9rem;color:var(--muted)">Coherencia estratégica</div>
+        </div>
+      </div>
+      <div id="badges" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <div class="result-card" style="margin-top:18px">
+    <h3>Retroalimentación</h3>
+    <div id="feedback"></div>
+  </div>
+
+  <div class="result-card" style="margin-top:18px">
+    <h3>Respuesta final para defender en 1 minuto</h3>
+    <pre id="pitch"></pre>
+  </div>
+
+  <div class="actions">
+    <button class="primary" onclick="copyPitch()">Copiar respuesta</button>
+    <button class="secondary" onclick="downloadResult()">Descargar resultado</button>
+    <button class="secondary" onclick="restart()">Reiniciar</button>
+  </div>
+</div>
+
+</section>
+</div>
+
+<script>
+const challenges=[
+{id:"energia",title:"Costo y dependencia energética",desc:"El costo de la energía aumenta y afecta márgenes y exposición a combustibles fósiles."},
+{id:"agua",title:"Sequía y vulnerabilidad de proveedores",desc:"Productores agrícolas enfrentan estrés hídrico y menor estabilidad productiva."},
+{id:"huella",title:"Presión por menor huella ambiental",desc:"Clientes demandan productos con menor huella y mayor desempeño ambiental."},
+{id:"suministro",title:"Interrupciones en la cadena de suministro",desc:"La continuidad del negocio depende de proveedores vulnerables y materias primas críticas."},
+{id:"trazabilidad",title:"Trazabilidad para exportar",desc:"Mercados externos elevan exigencias de trazabilidad y desempeño socioambiental."}
+];
+const frameworks=[
+{id:"vc",title:"Valor compartido",desc:"Crear valor económico al resolver simultáneamente un desafío social o ambiental."},
+{id:"circular",title:"Economía circular",desc:"Mantener productos y materiales en uso y reducir residuos desde el diseño."},
+{id:"licencia",title:"Licencia social",desc:"Construir aceptación, confianza y legitimidad para operar."},
+{id:"eco",title:"Ecoeficiencia",desc:"Generar más valor usando menos recursos y generando menos impacto."},
+{id:"acv",title:"Ciclo de vida / ACV",desc:"Mirar impactos a lo largo de toda la vida del producto para evitar trasladarlos."}
+];
+const fit={energia:["eco","acv","circular"],agua:["vc","acv","eco"],huella:["acv","eco","circular"],suministro:["vc","circular","acv"],trazabilidad:["acv","vc","licencia"]};
+const actionBank={
+vc:["Fortalecer proveedores agrícolas con tecnología, capacitación y contratos de largo plazo.","Rediseñar la relación con proveedores para mejorar productividad, resiliencia y estabilidad del suministro.","Desarrollar productos o mercados que resuelvan una necesidad social o ambiental y generen nuevos ingresos."],
+circular:["Rediseñar envases y materiales para reutilización, retorno o reciclaje de alto valor.","Implementar recuperación de materiales críticos para reducir dependencia de materias primas vírgenes.","Cambiar de venta de producto a servicio para alinear ingresos con durabilidad y eficiencia."],
+licencia:["Crear participación temprana con comunidades antes de definir decisiones irreversibles.","Establecer mecanismos transparentes de diálogo, monitoreo y distribución de beneficios.","Rediseñar el proyecto incorporando preocupaciones locales antes de permisos finales."],
+eco:["Reducir energía y agua por unidad producida mediante eficiencia operativa y tecnologías limpias.","Optimizar logística para disminuir combustible, costos y emisiones.","Reducir pérdidas de materias primas y residuos dentro del proceso productivo."],
+acv:["Realizar un ACV para identificar hotspots ambientales desde materias primas hasta fin de vida.","Comparar alternativas considerando producción, transporte, uso y disposición final.","Rediseñar la estrategia de reducción priorizando las etapas con mayor impacto en el ciclo de vida."]
+};
+const businessValues=["Menor costo","Menor riesgo","Mayor productividad","Estabilidad del suministro","Acceso a mercados","Acceso a capital","Innovación","Diferenciación","Resiliencia"];
+const impacts=["Menores emisiones","Menor uso de agua","Menor generación de residuos","Menor presión sobre biodiversidad","Mejores condiciones para proveedores","Mayor resiliencia local","Mayor trazabilidad y transparencia","Menor extracción de materias primas"];
+
+let state={challenge:null,framework:null,action:null,depth:null,stress:[]};
+let current=0;
+const names=["Inicio","Prioridad","Marco","Decisión","Profundidad","Valor e impacto","Stress test","Resultados"];
+
+function render(){
+ document.getElementById("challengeOptions").innerHTML=challenges.map(c=>`<div class="option" data-choice="challenge" data-value="${c.id}" onclick="selectOption(this)"><span class="tag">Desafío</span><h3>${c.title}</h3><p>${c.desc}</p></div>`).join("");
+ document.getElementById("frameworkOptions").innerHTML=frameworks.map(f=>`<div class="option" data-choice="framework" data-value="${f.id}" onclick="selectFramework(this)"><span class="tag">Marco</span><h3>${f.title}</h3><p>${f.desc}</p></div>`).join("");
+ document.getElementById("businessChecks").innerHTML=businessValues.map(v=>`<label class="checkcard"><input type="checkbox" name="business" value="${v}"><span>${v}</span></label>`).join("");
+ document.getElementById("impactChecks").innerHTML=impacts.map(v=>`<label class="checkcard"><input type="checkbox" name="impact" value="${v}"><span>${v}</span></label>`).join("");
+}
+function selectOption(el){
+ const c=el.dataset.choice;
+ document.querySelectorAll(`[data-choice="${c}"]`).forEach(x=>x.classList.remove("selected"));
+ el.classList.add("selected");
+ state[c]=el.dataset.value;
+}
+function selectFramework(el){selectOption(el);state.framework=el.dataset.value;renderActions();}
+function renderActions(){
+ const b=actionBank[state.framework]||[];
+ document.getElementById("actionOptions").innerHTML=b.map((a,i)=>`<div class="option" data-choice="action" data-value="${encodeURIComponent(a)}" onclick="selectAction(this)"><span class="tag">Opción ${i+1}</span><h3>${a}</h3></div>`).join("");
+}
+function selectAction(el){
+ document.querySelectorAll(`[data-choice="action"]`).forEach(x=>x.classList.remove("selected"));
+ el.classList.add("selected");
+ state.action=decodeURIComponent(el.dataset.value);
+ document.getElementById("customAction").value="";
+}
+document.addEventListener("input",e=>{
+ if(e.target.id==="customAction"&&e.target.value.trim()){
+   document.querySelectorAll(`[data-choice="action"]`).forEach(x=>x.classList.remove("selected"));
+   state.action=e.target.value.trim();
+ }
+});
+function toggleMulti(el){
+ el.classList.toggle("selected");
+ const v=el.dataset.value;
+ if(el.classList.contains("selected")){if(!state.stress.includes(v))state.stress.push(v);}
+ else state.stress=state.stress.filter(x=>x!==v);
+}
+function checked(name){return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(x=>x.value)}
+function txt(id){return document.getElementById(id).value.trim()}
+function titleOf(list,id){return (list.find(x=>x.id===id)||{}).title||""}
+function updateProgress(){
+ const pct=current===0?0:current===7?100:(current/6)*100;
+ document.getElementById("progress").style.width=pct+"%";
+ document.getElementById("stepName").textContent=names[current];
+ document.getElementById("stepCount").textContent=current===7?"Final":`${current} / 6`;
+}
+function showStep(n){
+ document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
+ document.querySelector(`.step[data-step="${n}"]`).classList.add("active");
+ current=n;updateProgress();window.scrollTo({top:0,behavior:"smooth"});
+}
+function nextStep(){
+ if(current===0){if(!txt("groupName"))document.getElementById("groupName").value="Grupo sin nombre";}
+ if(current===1 && (!state.challenge || txt("challengeWhy").length<15)){alert("Elijan un problema y escriban una justificación breve.");return;}
+ if(current===2 && (!state.framework || txt("frameworkWhy").length<15)){alert("Elijan un marco y expliquen brevemente por qué.");return;}
+ if(current===3){
+   const c=txt("customAction"); if(c)state.action=c;
+   if(!state.action){alert("Elijan o escriban una decisión estratégica.");return;}
+ }
+ if(current===4 && (!state.depth || txt("depthWhy").length<15)){alert("Elijan optimización o transformación y justifiquen brevemente.");return;}
+ if(current===5){
+   if(checked("business").length<1 || checked("impact").length<1 || txt("tradeoff").length<10){
+     alert("Completen las 3 partes: valor para la empresa, impacto socioambiental y riesgo/trade-off.");return;
+   }
+ }
+ showStep(current+1);
+}
+function prevStep(){showStep(Math.max(0,current-1))}
+
+function showResults(){
+ if(state.stress.length<1 || txt("stressWhy").length<15){alert("Elijan al menos una prueba de stress test y escriban qué revisarían.");return;}
+ const b=checked("business"), i=checked("impact");
+ let score=0;
+ score+=15;
+ const frameworkFit=(fit[state.challenge]||[]).includes(state.framework);
+ score+=frameworkFit?15:9;
+ score+=txt("frameworkWhy").length>=45?10:7;
+ score+=state.action.length>=35?15:10;
+ score+=txt("depthWhy").length>=35?15:10;
+ score+=Math.min(10,b.length*3)+Math.min(10,i.length*3);
+ score+=txt("tradeoff").length>=30?5:3;
+ score+=state.stress.length>=2?3:2;
+ score+=txt("stressWhy").length>=35?2:1;
+ score=Math.min(100,score);
+
+ const challenge=titleOf(challenges,state.challenge), framework=titleOf(frameworks,state.framework), group=txt("groupName");
+ document.getElementById("summary").innerHTML=`
+ <div class="summary-line"><strong>Grupo:</strong> ${group}</div>
+ <div class="summary-line"><strong>Problema:</strong> ${challenge}</div>
+ <div class="summary-line"><strong>Marco:</strong> ${framework}</div>
+ <div class="summary-line"><strong>Decisión:</strong> ${state.action}</div>
+ <div class="summary-line"><strong>Tipo de cambio:</strong> ${state.depth}</div>
+ <div class="summary-line"><strong>Valor para la empresa:</strong> ${b.join(", ")}</div>
+ <div class="summary-line"><strong>Impacto abordado:</strong> ${i.join(", ")}</div>
+ <div class="summary-line"><strong>Trade-off:</strong> ${txt("tradeoff")}</div>`;
+
+ document.getElementById("scoreNum").textContent=score;
+ document.getElementById("scoreLabel").textContent=score>=85?"Decisión muy sólida":score>=70?"Decisión bien construida":score>=55?"Decisión defendible":"Falta profundizar";
+ let badges=[];
+ badges.push(`<span class="badge ${frameworkFit?'good':'mid'}">${frameworkFit?'Marco bien alineado':'Marco requiere mayor justificación'}</span>`);
+ badges.push(`<span class="badge note">${state.depth}</span>`);
+ if(state.stress.length>=2)badges.push(`<span class="badge good">Mirada crítica</span>`);
+ document.getElementById("badges").innerHTML=badges.join("");
+
+ let fb=[];
+ fb.push(frameworkFit
+ ? `<p><strong>Marco:</strong> la elección está bien alineada con el problema priorizado.</p>`
+ : `<p><strong>Marco:</strong> la elección puede defenderse, pero exige explicar por qué aporta más que ${ (fit[state.challenge]||[]).map(id=>titleOf(frameworks,id)).join(", ") }.</p>`);
+ fb.push(state.depth==="Optimización"
+ ? `<p><strong>Profundidad:</strong> la decisión mejora el sistema existente. Pregúntense si basta con optimizar o si el desafío requiere cambiar incentivos o modelo de negocio.</p>`
+ : `<p><strong>Profundidad:</strong> la propuesta cambia la lógica del negocio. Puede generar mayor ventaja competitiva, pero también más inversión, incertidumbre y resistencia interna.</p>`);
+ fb.push(`<p><strong>Mirada crítica:</strong> sometieron la decisión a ${state.stress.join(", ")}. Eso ayuda a evitar soluciones que parezcan sostenibles pero desplacen o amplifiquen impactos.</p>`);
+ fb.push(`<p><strong>Pregunta final:</strong> ¿esta decisión reduce realmente la vulnerabilidad futura de la empresa o solo mejora su desempeño actual?</p>`);
+ document.getElementById("feedback").innerHTML=fb.join("");
+
+ const pitch=`${group}
+Problema priorizado: ${challenge}
+Decisión estratégica: ${state.action}
+Marco principal: ${framework}
+Justificación: ${txt("frameworkWhy")}
+Clasificación: ${state.depth}. ${txt("depthWhy")}
+Valor para la empresa: ${b.join(", ")}
+Impacto social/ambiental: ${i.join(", ")}
+Riesgo o trade-off: ${txt("tradeoff")}
+Stress test: ${state.stress.join(", ")}
+Antes de aprobarla revisaríamos: ${txt("stressWhy")}`;
+ document.getElementById("pitch").textContent=pitch;
+ window.finalPitch=pitch;
+ showStep(7);
+}
+function copyPitch(){navigator.clipboard.writeText(window.finalPitch||"").then(()=>alert("Respuesta copiada."))}
+function downloadResult(){
+ const blob=new Blob([window.finalPitch||""],{type:"text/plain;charset=utf-8"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="resultado_directorio.txt";a.click();URL.revokeObjectURL(a.href)
+}
+function restart(){location.reload()}
+render();updateProgress();
+</script>
+</body>
+</html>
